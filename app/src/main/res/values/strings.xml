@@ -56,4 +56,13 @@
     <string name="dark">Dark Theme</string>
     <string name="darkdesc">Enable/Disable dark theme</string>
     <string name="auth_failed">Failed</string>
+
+
+    <string name="course_desc">Course Description</string>
+
+    <!--fire base keys -->
+    <string name="fb_course_data" translatable="false">course_data</string>
+    <string name="fb_course_desc" translatable="false">over_view</string>
+    <string name="fb_course_photo" translatable="false">photo</string>
+    <string name="fb_prerequiste" translatable="false">prerequiste</string>
 </resources>

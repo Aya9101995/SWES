@@ -46,6 +46,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "619812447348-n3sv051ies3pumk0lpo1hhoj7mrthaek.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "swes.swes",
+            "certificate_hash": "c9f6849e2c9dcd4911f7f200bf977bf1fd6c6cae"
+          }
+        },
+        {
           "client_id": "619812447348-28nm4fklbqjumg0l8167gokulbis6ei9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

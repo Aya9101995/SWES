@@ -80,6 +80,10 @@
         <item>You can See our Tutorials and Stories solve tests and get Interactive with our app forum</item>
         <item>You can send us feedback with clicking on fab</item>
     </string-array>
+
+
+    <string name="course_desc">Course Description</string>
+    <string name="course_prereq">Course prerequisites</string>
     <!--intent extras-->
     <string name="old_password">oldPassword</string>
     <!--content descriptions-->

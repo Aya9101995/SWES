@@ -6,7 +6,7 @@
         <item name="android:windowBackground">@color/aya3</item>
         <item name="colorPrimary">@color/aya2</item>
         <item name="colorPrimaryDark">@color/aya2</item>
-        <item name="colorAccent">@color/reda200</item>
+        <item name="colorAccent">@color/aya1</item>
         <item name="android:itemBackground">@color/aya3</item>
         <item name ="android:actionMenuTextColor">@color/aya2</item>
         <item name="android:textColor">@color/aya2</item>
@@ -14,7 +14,8 @@
         <item name ="android:textColorHint">@color/aya2</item>
         <item name ="android:textColorSecondary">@color/aya2</item>
         <item name ="android:textColorPrimary">@color/aya2</item>
-        <item name="colorControlNormal">#ffff</item>
+        <item name="colorControlNormal">@color/aya3</item>
+        <item name="titleTextColor">@color/aya3</item>
 
     </style>
 
@@ -22,9 +23,9 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowBackground">@color/darkgrey</item>
-        <item name="colorPrimary">@color/blue500</item>
-        <item name="colorPrimaryDark">@color/blue700</item>
-        <item name="colorAccent">@color/reda200</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/aya2</item>
+        <item name="colorAccent">@color/aya1</item>
         <item name="android:textColor">@color/white</item>
         <item name ="android:actionMenuTextColor">@color/white</item>
         <item name ="android:textColorLink">@color/white</item>
@@ -50,9 +51,9 @@
 
     <style name="TutorialTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/aya2</item>
+        <item name="colorAccent">@color/aya1</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

@@ -32,15 +32,6 @@
             />
     </group>
 
-
-
-
-        <item android:id="@+id/posts"
-            android:title="posts"
-            android:icon="@drawable/icons8comments32"
-            />
-
-
     <item android:title="Other">
         <menu>
             <item

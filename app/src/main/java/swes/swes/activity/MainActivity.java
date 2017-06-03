@@ -1,13 +1,9 @@
 package swes.swes.activity;
 
-import android.app.AlertDialog;
-import android.app.Notification;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -20,7 +16,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,8 +23,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,18 +32,15 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import swes.swes.Models.FAQ;
-import swes.swes.PostsFeature.PostsMainActivity;
 import swes.swes.R;
+import swes.swes.classes.Student;
 import swes.swes.fragment.FAQFragment;
 import swes.swes.fragment.HomeFragment;
 import swes.swes.fragment.RefrencesFragment;
 import swes.swes.fragment.SettingsFragment;
 import swes.swes.fragment.SubscribtionFragment;
-import swes.swes.other.CircleTransform;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,14 +55,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtName, txtWebsite;
     private Toolbar toolbar;
     private FloatingActionButton fab;
-
-
-
+    private  String uid;
+    private Student student;
     // urls to load navigation header background image
     // and profile image
     private static final String urlNavHeaderBg = "";
     private static final String urlProfileImg = "";
-
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private  DatabaseReference myRef ;
     // index to identify current nav menu item
     public static int navItemIndex = 0;
 
@@ -95,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +98,10 @@ public class MainActivity extends AppCompatActivity {
         SettingsActivity.theme = sharedPreferences.getInt("theme", 0);
 
         rt = SettingsActivity.theme;
+        if (auth.getCurrentUser() != null) {
+            uid=auth.getCurrentUser().getUid();
 
+        }
         if (SettingsActivity.theme == 1) {
             setTheme(R.style.DarkAppTheme);
         }
@@ -134,15 +128,17 @@ public class MainActivity extends AppCompatActivity {
         txtName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(getApplicationContext(),"Clickable Text",Toast.LENGTH_SHORT).show();
+                  Intent intent = new Intent(MainActivity.this,UserAccountActivity.class);
+                startActivity(intent);
+                //Toast.makeText(getApplicationContext(),"Clickable Text",Toast.LENGTH_SHORT).show();
             }
         });
 
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Clickable Profile Image",Toast.LENGTH_SHORT).show();
+                   Intent intent = new Intent(MainActivity.this,UserAccountActivity.class);
+                 startActivity(intent);                                                       Toast.makeText(getApplicationContext(),"Clickable Profile Image",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -172,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
             CURRENT_TAG = TAG_HOME;
             loadHomeFragment();
         }
-
     }
 
     /***
@@ -182,11 +177,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private void loadNavHeader() {
         // name, website
-        if (auth.getCurrentUser() != null) {
-            txtName.setText(auth.getCurrentUser().getEmail());
 
-        }
-       // txtWebsite.setText("SWESAPP");
+       getCurrentStudent();
+
+        // txtWebsite.setText("SWESAPP");
 
         // loading header background image
       /*  Glide.with(this).load(urlNavHeaderBg)
@@ -211,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
      * selected from navigation menu
      */
     private void loadHomeFragment() {
-        // selecting appropriate nav menu item
+        // selecting approprite nav menu item
         selectNavMenu();
 
         // set toolbar title
@@ -350,12 +344,6 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, AboutUsActivity.class));
                         drawer.closeDrawers();
                         return true;
-
-                    case R.id.posts:
-                        startActivity(new Intent(MainActivity.this, PostsMainActivity.class));
-                        drawer.closeDrawers();
-                        return true;
-
                     case R.id.share_SocialMedia:
                         // launch new intent instead of loading fragment
 
@@ -529,6 +517,29 @@ public class MainActivity extends AppCompatActivity {
         //progressDialog.dismiss();
     }
 
+    public  Student getCurrentStudent(){
+        final  Student s = new Student();
+        myRef = database.getReference(getString(R.string.fb_users));
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+
+                s.setEmail(dataSnapshot.child(uid).child(getString(R.string.fb_users_email)).getValue(String.class));
+                s.setName(dataSnapshot.child(uid).child(getString(R.string.fb_users_name)).getValue(String.class));
+                txtName.setText(s.getName());
+                Log.d("Firebaseclass", "Value is: " + s.getName());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("Firebaseclass", "Failed to read value.", error.toException());
+            }
+        });
+        return s;
+    }
 
 
 }
